@@ -1,12 +1,7 @@
 package org.covoiturage.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.SuperBuilder;
+import jakarta.persistence.*;
+import lombok.*;
 import org.covoiturage.entity.abstracts.User;
 
 @Entity
@@ -16,4 +11,5 @@ public class Passenger extends User {
 
     @Column(nullable = false)
     private String cin;
+
 }

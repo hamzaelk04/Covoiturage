@@ -1,15 +1,18 @@
 package org.covoiturage.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.SuperBuilder;
-import org.covoiturage.entity.abstracts.User;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "admins")
-@Getter @Setter @SuperBuilder @NoArgsConstructor
-public class Admin extends User {
+@Getter  @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+public class Admin {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    private String email;
+
 }
