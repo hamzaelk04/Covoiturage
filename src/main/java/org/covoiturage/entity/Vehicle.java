@@ -21,4 +21,7 @@ public class Vehicle {
     private int capacity;
 
 //    Add the driver
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "driver_id", nullable = false)
+    private Driver driver;
 }
