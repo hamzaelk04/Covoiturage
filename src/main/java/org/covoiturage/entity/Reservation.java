@@ -39,6 +39,9 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReservationStatus status;
-//    Add passenger
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "passenger_id", nullable = false)
+    private Passenger passenger;
 //    Add stagingPoint
 }
