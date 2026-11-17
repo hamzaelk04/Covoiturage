@@ -3,6 +3,7 @@ package org.covoiturage.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.*;
+import org.covoiturage.enums.RouteStatus;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +33,11 @@ public class Route {
     @Min(1)
     private int availablePlaces;
 
-//    Add the status enum
-//    Add the vehicle
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RouteStatus status;
+
+
+    //    Add the vehicle
 //    Add the list of stagingPoints
 }

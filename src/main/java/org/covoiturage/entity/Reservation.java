@@ -3,6 +3,7 @@ package org.covoiturage.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.*;
+import org.covoiturage.enums.ReservationStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -35,7 +36,9 @@ public class Reservation {
     @Column(name = "reservation_date", nullable = false)
     private LocalDateTime reservationDate;
 
-//    Add reservation status
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ReservationStatus status;
 //    Add passenger
 //    Add stagingPoint
 }
