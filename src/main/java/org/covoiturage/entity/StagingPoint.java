@@ -20,11 +20,13 @@ public class StagingPoint {
 
     private String city;
 
-    private int order;
+    @Column(name = "stop_order")
+    private int stopOrder;
 
     @Column(name = "passing_time")
     private LocalDateTime passingTime;
 
+    @Column(precision = 10, scale = 2)
     private BigDecimal price;
 
 //    Add route

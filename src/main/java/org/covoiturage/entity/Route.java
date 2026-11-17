@@ -1,6 +1,7 @@
 package org.covoiturage.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,17 +18,18 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "start_city")
-    private String starCity;
+    @Column(name = "start_city", nullable = false)
+    private String startCity;
 
 
-    @Column(name = "arrival_city")
+    @Column(name = "arrival_city", nullable = false)
     private String arrivalCity;
 
-    @Column(name = "start_date")
+    @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
 
     @Column(name = "available_places")
+    @Min(1)
     private int availablePlaces;
 
 //    Add the status enum

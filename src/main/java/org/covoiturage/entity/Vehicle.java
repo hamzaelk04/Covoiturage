@@ -11,11 +11,12 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String mark;
+    private String brand;
 
     private String model;
 
-    private String matriculation;
+    @Column(name = "registration_number")
+    private String registrationNumber;
 
     private int capacity;
 

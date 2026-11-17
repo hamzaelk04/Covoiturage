@@ -1,6 +1,7 @@
 package org.covoiturage.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -24,12 +25,14 @@ public class Reservation {
     @Column(name = "descent_point")
     private String descentPoint;
 
-    private int capacity;
+    @Column(name = "number_of_seats")
+    @Min(1)
+    private int numberOfSeats;
 
-    @Column(name = "total_amount")
+    @Column(name = "total_amount", precision = 10, scale = 2)
     private BigDecimal totalAmount;
 
-    @Column(name = "reservation_date")
+    @Column(name = "reservation_date", nullable = false)
     private LocalDateTime reservationDate;
 
 //    Add reservation status
