@@ -6,6 +6,8 @@ import lombok.*;
 import org.covoiturage.enums.RouteStatus;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "routes")
@@ -37,7 +39,12 @@ public class Route {
     @Column(nullable = false)
     private RouteStatus status;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    private Vehicle vehicle;
 
-    //    Add the vehicle
-//    Add the list of stagingPoints
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("stopOrder ASC")
+    @Builder.Default
+    private List<StagingPoint> stagingPoints = new ArrayList<>();
 }

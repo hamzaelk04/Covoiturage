@@ -29,5 +29,7 @@ public class StagingPoint {
     @Column(precision = 10, scale = 2)
     private BigDecimal price;
 
-//    Add route
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "route_id", nullable = false)
+    private Route route;
 }
