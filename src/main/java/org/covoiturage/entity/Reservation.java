@@ -20,12 +20,6 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "boarding_point")
-    private String boardingPoint;
-
-    @Column(name = "descent_point")
-    private String descentPoint;
-
     @Column(name = "number_of_seats")
     @Min(1)
     private int numberOfSeats;
@@ -43,5 +37,12 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "passenger_id", nullable = false)
     private Passenger passenger;
-//    Add stagingPoint
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "boarding_point_id", nullable = false)
+    private StagingPoint boardingPoint;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "descent_point_id", nullable = false)
+    private StagingPoint descentPoint;
 }
