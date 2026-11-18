@@ -13,7 +13,7 @@ import java.util.List;
 @Getter @Setter @SuperBuilder @NoArgsConstructor
 public class Driver extends User{
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String licence;
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)

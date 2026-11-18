@@ -13,7 +13,7 @@ import java.util.List;
 @Getter @Setter @SuperBuilder @NoArgsConstructor
 public class Passenger extends User {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cin;
 
     @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL)

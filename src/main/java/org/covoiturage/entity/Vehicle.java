@@ -18,7 +18,7 @@ public class Vehicle {
 
     private String model;
 
-    @Column(name = "registration_number")
+    @Column(name = "registration_number", unique = true)
     private String registrationNumber;
 
     private int capacity;
