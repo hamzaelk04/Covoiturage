@@ -1,1 +1,6 @@
 2026-11-18T01:01:49.941+01:00  WARN 13920 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=46m46s211ms677µs700ns).
+2026-11-18T01:44:37.588+01:00  WARN 13920 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=42m47s648ms288µs900ns).
+2026-11-18T06:49:40.662+01:00  WARN 13920 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4h8m2s137ms979µs300ns).
+2026-11-18T12:06:01.992+01:00  WARN 13920 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5h16m29s740ms786µs100ns).
+2026-11-18T13:22:56.970+01:00  WARN 13920 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m23s985ms957µs500ns).
+2026-11-18T14:26:20.120+01:00  WARN 13920 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=40m31s932ms654µs).
