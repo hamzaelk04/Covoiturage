@@ -12,4 +12,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     Page<Vehicle> findByDriver_Id(UUID driverId, Pageable pageable);
 
     Optional<Vehicle> findByIdAndDriver_Id(Long id, UUID driverId);
+
+    boolean existsByRegistrationNumber(String registrationNumber);
 }
