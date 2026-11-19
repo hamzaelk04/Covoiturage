@@ -10,8 +10,10 @@ import org.covoiturage.mapper.UserMapper;
 import org.covoiturage.repository.DriverRepository;
 import org.covoiturage.repository.PassengerRepository;
 import org.covoiturage.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Locale;
 
@@ -55,8 +57,7 @@ public class UserService {
         String email = newEmail.trim().toLowerCase(Locale.ROOT);
 
         if (userRepository.existsByEmail(email)) {
-//            THROW THE EMAIL EXISTS EXCEPTION
-            email = null;
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cet email existe déjà");
         }
 
         return email;

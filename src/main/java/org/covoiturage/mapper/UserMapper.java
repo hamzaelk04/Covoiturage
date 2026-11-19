@@ -27,13 +27,11 @@ public interface UserMapper {
 
 //    PASSENGER RESPONSE
     @Mapping(target = "role", constant = "PASSENGER")
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "licence", ignore = true)
     UserResponse passengerToResponse(Passenger passenger);
 
 //    LICENCE RESPONSE
     @Mapping(target = "role", constant = "DRIVER")
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "cin", ignore = true)
     UserResponse driverToResponse(Driver driver);
 
