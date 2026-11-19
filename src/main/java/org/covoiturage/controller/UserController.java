@@ -43,6 +43,13 @@ public class UserController {
         return ResponseEntity.ok(userService.update(id, request));
     }
 
+//    READ THE DRIVER OR PASSENGER
+    @GetMapping("/{id}")
+    @Operation(summary = "Consulter un utilisateur")
+    public ResponseEntity<UserResponse> getById(@PathVariable UUID id) {
+        return ResponseEntity.ok(userService.getById(id));
+    }
+
 //    HELPER
     private ResponseEntity<UserResponse> created(UserResponse body) {
         return ResponseEntity

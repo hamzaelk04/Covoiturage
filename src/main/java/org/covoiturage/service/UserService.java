@@ -94,6 +94,11 @@ public class UserService {
         return userMapper.toResponse(user);
     }
 
+//    READ
+    @Transactional(readOnly = true)
+    public UserResponse getById(UUID id) {
+        return userMapper.toResponse(findUserOrThrow(id));
+    }
 
 //    HELPERS
     private String checkEmail(String newEmail) {
