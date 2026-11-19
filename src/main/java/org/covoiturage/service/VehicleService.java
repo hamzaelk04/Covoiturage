@@ -6,7 +6,6 @@ import org.covoiturage.dto.vehicle.VehicleResponse;
 import org.covoiturage.entity.Driver;
 import org.covoiturage.entity.Vehicle;
 import org.covoiturage.mapper.VehicleMapper;
-import org.covoiturage.repository.UserRepository;
 import org.covoiturage.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +21,8 @@ public class VehicleService {
 
     @Transactional
     public VehicleResponse create(UUID driverId, VehicleCreateRequest request) {
+        checkRegistraionNumber(request.getRegistrationNumber());
+
         Driver driver = userService.getDriverEntity(driverId);
 
         Vehicle vehicle = vehicleMapper.toEntity(request);
@@ -33,4 +34,7 @@ public class VehicleService {
     }
 
 //    HELPER
+    private void checkRegistraionNumber(String registrationNumber) {
+        if (vehicleRepository.existsByRegistrationNumber(registrationNumber)) throw new RuntimeException("This matricule already exist");
+    }
 }
