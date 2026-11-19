@@ -45,4 +45,15 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.update(driverId, id, request));
     }
 
+//    DELETE
+    @DeleteMapping("/drivers/{driverId}/vehicle/{id}")
+    @Operation(summary = "Modifier une vehicule")
+    public ResponseEntity<Void> delete(
+            @PathVariable UUID driverId,
+            @PathVariable Long id
+    ) {
+        vehicleService.delete(id, driverId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

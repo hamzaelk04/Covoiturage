@@ -58,8 +58,17 @@ public class VehicleService {
 
         }
 
-
         return vehicleMapper.updateAndMap(request, vehicle);
+    }
+
+//    DELETE
+    public void delete(Long vehicleId, UUID driverId) {
+        Vehicle vehicle = vehicleRepository.findByIdAndDriver_Id(vehicleId, driverId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Vehicle does not exist : " + vehicleId
+                ));
+
+        vehicleRepository.delete(vehicle);
     }
 
 //    HELPER
