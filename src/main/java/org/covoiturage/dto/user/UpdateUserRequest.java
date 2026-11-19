@@ -6,7 +6,7 @@ import lombok.*;
 
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class updateUserRequest extends UserRegisterRequest{
+public class UpdateUserRequest extends UserRegisterRequest{
     @NotBlank(message = "Le permis est obligatoire")
     private String licence;
 
