@@ -21,14 +21,15 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Locale;
 import java.util.UUID;
 
-@Service @RequiredArgsConstructor
+@Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final DriverRepository driverRepository;
     private final PassengerRepository passengerRepository;
     private final UserMapper userMapper;
 
-//    CREATE PASSENGER
+    //    CREATE PASSENGER
     @Transactional
     public UserResponse createPassenger(PassengerRequest request) {
         String email = checkEmail(request.getEmail());
@@ -41,7 +42,7 @@ public class UserService {
         return userMapper.toResponse(passengerRepository.save(passenger));
     }
 
-//    CREATE THE DRIVER
+    //    CREATE THE DRIVER
     @Transactional
     public UserResponse createDriver(DriverRequest request) {
         String email = checkEmail(request.getEmail());
@@ -55,7 +56,7 @@ public class UserService {
         return userMapper.toResponse(driverRepository.save(driver));
     }
 
-//    UPDATE THE DRIVER AND PASSENGER
+    //    UPDATE THE DRIVER AND PASSENGER
     @Transactional
     public UserResponse update(UUID id, UpdateUserRequest request) {
         User user = findUserOrThrow(id);
@@ -94,13 +95,13 @@ public class UserService {
         return userMapper.toResponse(user);
     }
 
-//    READ
+    //    READ
     @Transactional(readOnly = true)
     public UserResponse getById(UUID id) {
         return userMapper.toResponse(findUserOrThrow(id));
     }
 
-//    HELPERS
+    //    HELPERS
     private String checkEmail(String newEmail) {
         String email = newEmail.trim().toLowerCase(Locale.ROOT);
 
@@ -122,5 +123,20 @@ public class UserService {
     private User findUserOrThrow(UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("Utilisateur" + id));
+    }
+
+    //    HELPER FOR VEHICLES AND RESERVATIONS
+    @Transactional(readOnly = true)
+    public Passenger getPassengerEntity(UUID id) {
+        return passengerRepository.findById(id)
+//                add the resource not found exception
+                .orElseThrow(() -> new RuntimeException("passager" + id));
+    }
+
+    @Transactional(readOnly = true)
+    public Driver getDriverEntity(UUID id) {
+        return driverRepository.findById(id)
+//                add the resource not found exception
+                .orElseThrow(() -> new RuntimeException("conducteur" + id));
     }
 }
