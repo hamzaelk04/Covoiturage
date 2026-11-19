@@ -1,11 +1,14 @@
 package org.covoiturage.service;
 
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.covoiturage.dto.driver.DriverRequest;
 import org.covoiturage.dto.passenger.PassengerRequest;
+import org.covoiturage.dto.user.UpdateUserRequest;
 import org.covoiturage.dto.user.UserResponse;
 import org.covoiturage.entity.Driver;
 import org.covoiturage.entity.Passenger;
+import org.covoiturage.entity.abstracts.User;
 import org.covoiturage.mapper.UserMapper;
 import org.covoiturage.repository.DriverRepository;
 import org.covoiturage.repository.PassengerRepository;
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Locale;
+import java.util.UUID;
 
 @Service @RequiredArgsConstructor
 public class UserService {
@@ -51,15 +55,50 @@ public class UserService {
         return userMapper.toResponse(driverRepository.save(driver));
     }
 
+//    UPDATE THE DRIVER AND PASSENGER
+    @Transactional
+    public UserResponse update(UUID id, UpdateUserRequest request) {
+        User user = findUserOrThrow(id);
+
+        if (user instanceof Passenger passenger) {
+            rejectIfPresent(request.getLicence(), "licence", "PASSENGER");
+            userMapper.updatePassenger(request, passenger);
+        }
+
+        if (user instanceof Driver driver) {
+            rejectIfPresent(request.getCin(), "cin", "DRIVER");
+            userMapper.updateDriver(request, driver);
+        }
+
+        user.setEmail(user.getEmail().trim().toLowerCase());
+        user.setFirstname(user.getFirstname().trim());
+        user.setLastname(user.getLastname().trim());
+
+        return userMapper.toResponse(user);
+    }
+
 
 //    HELPERS
     private String checkEmail(String newEmail) {
         String email = newEmail.trim().toLowerCase(Locale.ROOT);
 
         if (userRepository.existsByEmail(email)) {
+//            ADD THE EXIST EMAIL EXCEPTION
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Cet email existe déjà");
         }
 
         return email;
+    }
+
+    private void rejectIfPresent(String value, String field, String role) {
+        if (value != null && !value.isBlank()) {
+            throw new ValidationException(
+                    "Le champ '" + field + "' n'est pas applicable pour " + role);
+        }
+    }
+
+    private User findUserOrThrow(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ValidationException("Utilisateur" + id));
     }
 }
