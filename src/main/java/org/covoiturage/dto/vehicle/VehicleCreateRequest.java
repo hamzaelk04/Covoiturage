@@ -3,8 +3,6 @@ package org.covoiturage.dto.vehicle;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter @Setter @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class VehicleCreateRequest {
