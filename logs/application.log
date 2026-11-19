@@ -107,3 +107,5 @@
 2026-11-19T10:26:07.179+01:00  WARN 23896 --- [Covoiturage] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
 2026-11-19T10:26:11.441+01:00  INFO 23896 --- [Covoiturage] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2026-11-19T10:26:13.163+01:00  INFO 23896 --- [Covoiturage] [http-nio-8080-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 933 ms
+2026-11-19T10:26:33.318+01:00 DEBUG 23896 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-19T10:26:33.319+01:00 DEBUG 23896 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.

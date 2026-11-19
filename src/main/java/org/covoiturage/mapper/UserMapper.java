@@ -42,4 +42,6 @@ public interface UserMapper {
     }
 
 //    UPDATES
+//    UPDATE PASSENGER
+    void updatePassenger();
 }
