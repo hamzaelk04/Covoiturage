@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.covoiturage.dto.vehicle.VehicleCreateRequest;
 import org.covoiturage.dto.vehicle.VehicleResponse;
+import org.covoiturage.dto.vehicle.VehicleUpdateRequest;
 import org.covoiturage.service.VehicleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,4 +35,14 @@ public class VehicleController {
 
         return ResponseEntity.created(location).body(body);
     }
+
+//    UPDATE
+    @PutMapping("/drivers/{driverId}/vehicles/{id}")
+    @Operation(summary = "Modifier une vehicule")
+    public ResponseEntity<VehicleResponse> update(@PathVariable UUID driverId,
+                                                  @PathVariable Long id,
+                                                  @Valid @RequestBody VehicleUpdateRequest request) {
+        return ResponseEntity.ok(vehicleService.update(driverId, id, request));
+    }
+
 }
