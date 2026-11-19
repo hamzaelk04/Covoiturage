@@ -60,19 +60,36 @@ public class UserService {
     public UserResponse update(UUID id, UpdateUserRequest request) {
         User user = findUserOrThrow(id);
 
+        if (request.getFirstname() != null) {
+            user.setFirstname(request.getFirstname().trim());
+        }
+        if (request.getLastname() != null) {
+            user.setLastname(request.getLastname().trim());
+        }
+        if (request.getEmail() != null) {
+            user.setEmail(checkEmail(request.getEmail().trim().toLowerCase(Locale.ROOT)));
+
+        }
+
         if (user instanceof Passenger passenger) {
             rejectIfPresent(request.getLicence(), "licence", "PASSENGER");
+
+            if (request.getCin() != null && !request.getCin().isBlank()) {
+                passenger.setCin(request.getCin());
+            }
+
             userMapper.updatePassenger(request, passenger);
         }
 
         if (user instanceof Driver driver) {
             rejectIfPresent(request.getCin(), "cin", "DRIVER");
+
+            if (request.getLicence() != null) {
+                driver.setLicence(request.getLicence());
+            }
+
             userMapper.updateDriver(request, driver);
         }
-
-        user.setEmail(user.getEmail().trim().toLowerCase());
-        user.setFirstname(user.getFirstname().trim());
-        user.setLastname(user.getLastname().trim());
 
         return userMapper.toResponse(user);
     }

@@ -6,15 +6,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.covoiturage.dto.driver.DriverRequest;
 import org.covoiturage.dto.passenger.PassengerRequest;
+import org.covoiturage.dto.user.UpdateUserRequest;
 import org.covoiturage.dto.user.UserResponse;
 import org.covoiturage.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -34,6 +33,14 @@ public class UserController {
     @Operation(summary = "Create a driver")
     public ResponseEntity<UserResponse> createDriver(@Valid @RequestBody DriverRequest request) {
         return created(userService.createDriver(request));
+    }
+
+//    UPDATE DRIVER AND PASSENGER
+    @PutMapping("/{id}")
+    @Operation(summary = "Modifier un utilisateur")
+    public ResponseEntity<UserResponse> update(@PathVariable UUID id,
+                                               @Valid @RequestBody UpdateUserRequest request) {
+        return ResponseEntity.ok(userService.update(id, request));
     }
 
 //    HELPER

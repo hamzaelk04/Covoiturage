@@ -43,10 +43,12 @@ public interface UserMapper {
 //    UPDATE PASSENGER
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "reservations", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updatePassenger(UpdateUserRequest request, @MappingTarget Passenger passenger);
 
-//    UPDATE DRIVER
-@Mapping(target = "id", ignore = true)
-@Mapping(target = "vehicles", ignore = true)
-void updateDriver(UpdateUserRequest request, @MappingTarget Driver driver);
+    //    UPDATE DRIVER
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "vehicles", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateDriver(UpdateUserRequest request, @MappingTarget Driver driver);
 }
