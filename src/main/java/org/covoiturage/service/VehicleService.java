@@ -81,6 +81,7 @@ public class VehicleService {
         vehicleRepository.delete(vehicle);
     }
 
+//    READ
     @Transactional(readOnly = true)
     public List<VehicleResponse> getVehiclesByDriverId(UUID driverId) {
         if (!driverRepository.existsById(driverId)) {
@@ -90,6 +91,14 @@ public class VehicleService {
                 .stream()
                 .map(vehicleMapper::toResponse)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public VehicleResponse getVehicleByIdAndDriverId(Long id, UUID driverId) {
+        Vehicle vehicle = vehicleRepository.findByIdAndDriver_Id(id, driverId)
+                .orElseThrow();
+
+        return vehicleMapper.toResponse(vehicle);
     }
 
 //    HELPER

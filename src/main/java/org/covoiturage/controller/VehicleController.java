@@ -62,12 +62,19 @@ public class VehicleController {
         return ResponseEntity.noContent().build();
     }
 
-//    GET BY DRIVER
+//    GET ALL BY DRIVER
     @GetMapping("/drivers/{driverId}/vehicles")
     public ResponseEntity<List<VehicleResponse>> getByDriver(
             @PathVariable UUID driverId
     ) {
         return ResponseEntity.ok(vehicleService.getVehiclesByDriverId(driverId));
+    }
+
+//    GET ONE BY ID AND DRIVER
+    @GetMapping("/drivers/{driverId}/vehicle/{id}")
+    public ResponseEntity<VehicleResponse> getByIdAndDriverId(@PathVariable UUID driverId,
+                                                              @PathVariable Long id) {
+        return ResponseEntity.ok(vehicleService.getVehicleByIdAndDriverId(id, driverId));
     }
 
 }
