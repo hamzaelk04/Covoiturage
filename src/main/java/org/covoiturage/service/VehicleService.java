@@ -7,13 +7,18 @@ import org.covoiturage.dto.vehicle.VehicleUpdateRequest;
 import org.covoiturage.entity.Driver;
 import org.covoiturage.entity.Vehicle;
 import org.covoiturage.mapper.VehicleMapper;
+import org.covoiturage.repository.DriverRepository;
 import org.covoiturage.repository.VehicleRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -22,6 +27,11 @@ public class VehicleService {
     private final UserService userService;
     private final VehicleRepository vehicleRepository;
     private final VehicleMapper vehicleMapper;
+    private final DriverRepository driverRepository;
+
+    private static final int MAX_PAGE_SIZE = 3;
+    private static final Set<String> ALLOWED_SORT_FIELDS =
+            Set.of("id", "brand", "model", "registrationNumber", "capacity");
 
     @Transactional
     public VehicleResponse create(UUID driverId, VehicleCreateRequest request) {
@@ -69,6 +79,17 @@ public class VehicleService {
                 ));
 
         vehicleRepository.delete(vehicle);
+    }
+
+    @Transactional(readOnly = true)
+    public List<VehicleResponse> getVehiclesByDriverId(UUID driverId) {
+        if (!driverRepository.existsById(driverId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conducteur introuvable : " + driverId);
+        }
+        return vehicleRepository.findAllByDriverId(driverId)
+                .stream()
+                .map(vehicleMapper::toResponse)
+                .toList();
     }
 
 //    HELPER

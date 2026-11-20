@@ -7,12 +7,18 @@ import lombok.RequiredArgsConstructor;
 import org.covoiturage.dto.vehicle.VehicleCreateRequest;
 import org.covoiturage.dto.vehicle.VehicleResponse;
 import org.covoiturage.dto.vehicle.VehicleUpdateRequest;
+import org.covoiturage.entity.Vehicle;
 import org.covoiturage.service.VehicleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -54,6 +60,14 @@ public class VehicleController {
     ) {
         vehicleService.delete(id, driverId);
         return ResponseEntity.noContent().build();
+    }
+
+//    GET BY DRIVER
+    @GetMapping("/drivers/{driverId}/vehicles")
+    public ResponseEntity<List<VehicleResponse>> getByDriver(
+            @PathVariable UUID driverId
+    ) {
+        return ResponseEntity.ok(vehicleService.getVehiclesByDriverId(driverId));
     }
 
 }
