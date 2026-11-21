@@ -4,10 +4,15 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.covoiturage.dto.stagingPoint.StagingPointRequest;
 
 import java.util.List;
 
+@Getter @Setter
+@NoArgsConstructor
 public class RouteCreateRequest {
     @NotNull(message = "L'identifiant du véhicule est obligatoire")
     Long vehicleId;
