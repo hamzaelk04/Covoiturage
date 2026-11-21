@@ -24,7 +24,6 @@ public class Route {
     @Column(name = "start_city", nullable = false)
     private String startCity;
 
-
     @Column(name = "arrival_city", nullable = false)
     private String arrivalCity;
 
@@ -32,7 +31,6 @@ public class Route {
     private LocalDateTime startDate;
 
     @Column(name = "available_places")
-    @Min(1)
     private int availablePlaces;
 
     @Enumerated(EnumType.STRING)
