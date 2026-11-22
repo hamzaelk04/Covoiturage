@@ -1,10 +1,8 @@
 package org.covoiturage.repository;
 
+import jakarta.persistence.LockModeType;
 import org.covoiturage.entity.Route;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -23,4 +21,8 @@ public interface RouteRepository extends JpaRepository<Route, Long>, JpaSpecific
 
     @EntityGraph(attributePaths = {"vehicle", "vehicle.driver", "stagingPoints"})
     List<Route> findByVehicleDriverIdOrderByStartDateDesc(UUID vehicleDriverId);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT r FROM Route r WHERE r.id = :id")
+    Optional<Route> findByIdForUpdate(@Param("id") Long id);
 }

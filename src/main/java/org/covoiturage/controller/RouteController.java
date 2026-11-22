@@ -71,4 +71,18 @@ public class RouteController {
     public ResponseEntity<List<RouteResponse>> getByDriver(@PathVariable UUID driverId) {
         return ResponseEntity.ok(routeService.getByDriver(driverId));
     }
+
+    @PatchMapping("/driver/{driverId}/routes/{id}/complete")
+    @Operation(summary = "Terminer un trajet")
+    public ResponseEntity<Void> complete(@PathVariable UUID driverId, @PathVariable Long id) {
+        routeService.complete(driverId, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/driver/{driverId}/routes/{id}/cancel")
+    @Operation(summary = "Annuler un trajet et ses réservations")
+    public ResponseEntity<Void> cancel(@PathVariable UUID driverId, @PathVariable Long id) {
+        routeService.cancel(driverId, id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -7,6 +7,7 @@ import org.covoiturage.dto.route.RouteResponse;
 import org.covoiturage.dto.route.RouteSearchCriteria;
 import org.covoiturage.dto.route.RouteUpdateRequest;
 import org.covoiturage.dto.stagingPoint.StagingPointRequest;
+import org.covoiturage.entity.Reservation;
 import org.covoiturage.entity.Route;
 import org.covoiturage.entity.Vehicle;
 import org.covoiturage.enums.ReservationStatus;
@@ -126,6 +127,39 @@ public class RouteService {
         return routeMapper.toResponse(route);
     }
 
+    @Transactional
+    public void complete(UUID driverId, Long id) {
+        Route route = findOwnedRoute(driverId, id);
+        requireOpen(route, "terminé");
+
+        if (LocalDateTime.now().isBefore(route.getStartDate())) {
+            throw refused(HttpStatus.CONFLICT, "Un trajet ne peut être terminé qu'après son heure de départ.");
+        }
+
+        route.setStatus(RouteStatus.COMPLETED);
+        log.info("Trajet terminé : id={}, conducteur={}", id, driverId);
+    }
+
+    @Transactional
+    public void cancel(UUID driverId, Long id) {
+        Route route = findOwnedRoute(driverId, id);
+        requireOpen(route, "annulé");
+
+        List<Reservation> confirmed = reservationRepository
+                .findByBoardingPointRouteIdAndStatus(id, ReservationStatus.CONFIRMED);
+        confirmed.forEach(r -> r.setStatus(ReservationStatus.CANCELED));
+        route.setStatus(RouteStatus.CANCELED);
+
+        log.info("Trajet annulé : id={}, conducteur={}, réservations annulées={}", id, driverId, confirmed.size());
+    }
+
+    private void requireOpen(Route route, String action) {
+        if (!EDITABLE_STATUSES.contains(route.getStatus())) {
+            throw refused(HttpStatus.CONFLICT,
+                    "Un trajet au statut " + route.getStatus() + " ne peut pas être " + action + ".");
+        }
+    }
+
 //    HELPERS
     private ResponseStatusException refused(HttpStatus status, String message) {
         log.warn(message);
@@ -172,7 +206,7 @@ public class RouteService {
                 .map(routeMapper::toResponse);
     }
 
-    private Route findOwnedRoute(UUID driverId, Long routeId) {
+    public Route findOwnedRoute(UUID driverId, Long routeId) {
         Route route = routeRepository.findDetailById(routeId)
                 .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Trajet introuvable (id=" + routeId + ")."));
 
