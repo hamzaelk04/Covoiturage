@@ -1,6 +1,5 @@
 package org.covoiturage.service;
 
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.covoiturage.dto.driver.DriverRequest;
 import org.covoiturage.dto.passenger.PassengerRequest;
@@ -9,14 +8,15 @@ import org.covoiturage.dto.user.UserResponse;
 import org.covoiturage.entity.Driver;
 import org.covoiturage.entity.Passenger;
 import org.covoiturage.entity.abstracts.User;
+import org.covoiturage.exception.InvalidRequestException;
+import org.covoiturage.exception.ResourceAlreadyExistsException;
+import org.covoiturage.exception.ResourceNotFoundException;
 import org.covoiturage.mapper.UserMapper;
 import org.covoiturage.repository.DriverRepository;
 import org.covoiturage.repository.PassengerRepository;
 import org.covoiturage.repository.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -106,8 +106,7 @@ public class UserService {
         String email = newEmail.trim().toLowerCase(Locale.ROOT);
 
         if (userRepository.existsByEmail(email)) {
-//            ADD THE EXIST EMAIL EXCEPTION
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cet email existe déjà");
+            throw new ResourceAlreadyExistsException("Cet email existe déjà");
         }
 
         return email;
@@ -115,28 +114,25 @@ public class UserService {
 
     private void rejectIfPresent(String value, String field, String role) {
         if (value != null && !value.isBlank()) {
-            throw new ValidationException(
-                    "Le champ '" + field + "' n'est pas applicable pour " + role);
+            throw new InvalidRequestException("Le champ '" + field + "' n'est pas applicable pour " + role);
         }
     }
 
     private User findUserOrThrow(UUID id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new ValidationException("Utilisateur" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur introuvable : " + id));
     }
 
     //    HELPER FOR VEHICLES AND RESERVATIONS
     @Transactional(readOnly = true)
     public Passenger getPassengerEntity(UUID id) {
         return passengerRepository.findById(id)
-//                add the resource not found exception
-                .orElseThrow(() -> new RuntimeException("passager" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Passager introuvable : " + id));
     }
 
     @Transactional(readOnly = true)
     public Driver getDriverEntity(UUID id) {
         return driverRepository.findById(id)
-//                add the resource not found exception
-                .orElseThrow(() -> new RuntimeException("conducteur" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Conducteur introuvable : " + id));
     }
 }

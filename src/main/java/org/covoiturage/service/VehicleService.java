@@ -6,15 +6,15 @@ import org.covoiturage.dto.vehicle.VehicleResponse;
 import org.covoiturage.dto.vehicle.VehicleUpdateRequest;
 import org.covoiturage.entity.Driver;
 import org.covoiturage.entity.Vehicle;
+import org.covoiturage.exception.ConflictException;
+import org.covoiturage.exception.ResourceAlreadyExistsException;
+import org.covoiturage.exception.ResourceNotFoundException;
 import org.covoiturage.mapper.VehicleMapper;
 import org.covoiturage.repository.DriverRepository;
+import org.covoiturage.repository.RouteRepository;
 import org.covoiturage.repository.VehicleRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +28,7 @@ public class VehicleService {
     private final VehicleRepository vehicleRepository;
     private final VehicleMapper vehicleMapper;
     private final DriverRepository driverRepository;
+    private final RouteRepository routeRepository;
 
     private static final int MAX_PAGE_SIZE = 3;
     private static final Set<String> ALLOWED_SORT_FIELDS =
@@ -50,9 +51,7 @@ public class VehicleService {
     @Transactional
     public VehicleResponse update(UUID driverId, Long id, VehicleUpdateRequest request) {
         Vehicle vehicle = vehicleRepository.findByIdAndDriver_Id(id, driverId)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Vehicle does not exist : " + id
-                ));
+                .orElseThrow(() -> new ResourceNotFoundException("Véhicule introuvable (id=" + id + ")"));
 
         if (request.getBrand() != null) {
             request.setBrand(request.getBrand().trim());
@@ -74,9 +73,11 @@ public class VehicleService {
 //    DELETE
     public void delete(Long vehicleId, UUID driverId) {
         Vehicle vehicle = vehicleRepository.findByIdAndDriver_Id(vehicleId, driverId)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Vehicle does not exist : " + vehicleId
-                ));
+                .orElseThrow(() -> new ResourceNotFoundException("Véhicule introuvable (id=" + vehicleId + ")"));
+
+        if (routeRepository.existsByVehicleId(vehicleId)) {
+            throw new ConflictException("Ce véhicule est associé à un trajet : il ne peut pas être supprimé.");
+        }
 
         vehicleRepository.delete(vehicle);
     }
@@ -85,7 +86,7 @@ public class VehicleService {
     @Transactional(readOnly = true)
     public List<VehicleResponse> getVehiclesByDriverId(UUID driverId) {
         if (!driverRepository.existsById(driverId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conducteur introuvable : " + driverId);
+            throw new ResourceNotFoundException("Conducteur introuvable : " + driverId);
         }
         return vehicleRepository.findAllByDriverId(driverId)
                 .stream()
@@ -96,13 +97,13 @@ public class VehicleService {
     @Transactional(readOnly = true)
     public VehicleResponse getVehicleByIdAndDriverId(Long id, UUID driverId) {
         Vehicle vehicle = vehicleRepository.findByIdAndDriver_Id(id, driverId)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Véhicule introuvable (id=" + id + ")"));
 
         return vehicleMapper.toResponse(vehicle);
     }
 
 //    HELPER
     private void checkRegistrationNumber(String registrationNumber) {
-        if (vehicleRepository.existsByRegistrationNumber(registrationNumber)) throw new RuntimeException("This matricule already exist");
+        if (vehicleRepository.existsByRegistrationNumber(registrationNumber)) throw new ResourceAlreadyExistsException("Ce numéro d'immatriculation existe déjà");
     }
 }

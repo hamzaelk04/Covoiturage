@@ -25,4 +25,6 @@ public interface RouteRepository extends JpaRepository<Route, Long>, JpaSpecific
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT r FROM Route r WHERE r.id = :id")
     Optional<Route> findByIdForUpdate(@Param("id") Long id);
+
+    boolean existsByVehicleId(Long vehicleId);
 }

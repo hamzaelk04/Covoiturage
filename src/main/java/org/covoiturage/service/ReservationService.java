@@ -10,14 +10,16 @@ import org.covoiturage.entity.Route;
 import org.covoiturage.entity.StagingPoint;
 import org.covoiturage.enums.ReservationStatus;
 import org.covoiturage.enums.RouteStatus;
+import org.covoiturage.exception.ConflictException;
+import org.covoiturage.exception.ForbiddenOperationException;
+import org.covoiturage.exception.InvalidRequestException;
+import org.covoiturage.exception.ResourceNotFoundException;
 import org.covoiturage.mapper.ReservationMapper;
 import org.covoiturage.repository.PassengerRepository;
 import org.covoiturage.repository.ReservationRepository;
 import org.covoiturage.repository.RouteRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -41,17 +43,17 @@ public class ReservationService {
     @Transactional
     public ReservationResponse create(UUID passengerId, ReservationCreateRequest request) {
         Passenger passenger = passengerRepository.findById(passengerId)
-                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Passager introuvable : " + passengerId));
+                .orElseThrow(() -> new ResourceNotFoundException("Passager introuvable : " + passengerId));
 
         Route route = routeRepository.findByIdForUpdate(request.getRouteId())
-                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND,
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Trajet introuvable (id=" + request.getRouteId() + ")."));
 
         if (route.getStatus() == RouteStatus.FULL) {
-            throw refused(HttpStatus.CONFLICT, "Le trajet est complet.");
+            throw new ConflictException("Le trajet est complet.");
         }
         if (route.getStatus() != RouteStatus.PUBLISHED) {
-            throw refused(HttpStatus.CONFLICT,
+            throw new ConflictException(
                     "Le trajet n'est pas ouvert à la réservation (statut " + route.getStatus() + ").");
         }
 
@@ -59,20 +61,20 @@ public class ReservationService {
         StagingPoint descentPoint = findPoint(route, request.getDescentPointId(), "descente");
 
         if (boardingPoint.getStopOrder() >= descentPoint.getStopOrder()) {
-            throw refused(HttpStatus.BAD_REQUEST,
+            throw new InvalidRequestException(
                     "Le point de montée doit être situé avant le point de descente.");
         }
 
         if (reservationRepository.existsByPassengerIdAndBoardingPointRouteIdAndStatus(
                 passengerId, route.getId(), ReservationStatus.CONFIRMED)) {
-            throw refused(HttpStatus.CONFLICT,
+            throw new ConflictException(
                     "Vous avez déjà une réservation confirmée sur ce trajet.");
         }
 
         long booked = reservationRepository.sumSeatsByRouteIdAndStatus(route.getId(), ReservationStatus.CONFIRMED);
         long remaining = route.getAvailablePlaces() - booked;
         if (request.getNumberOfSeats() > remaining) {
-            throw refused(HttpStatus.CONFLICT, "Il ne reste que " + remaining + " place(s) sur ce trajet.");
+            throw new ConflictException("Il ne reste que " + remaining + " place(s) sur ce trajet.");
         }
 
         BigDecimal totalAmount = descentPoint.getPrice()
@@ -108,16 +110,16 @@ public class ReservationService {
         Reservation reservation = findOwned(passengerId, id);
 
         if (reservation.getStatus() != ReservationStatus.CONFIRMED) {
-            throw refused(HttpStatus.CONFLICT,
+            throw new ConflictException(
                     "Cette réservation ne peut pas être annulée (statut " + reservation.getStatus() + ").");
         }
 
         Long routeId = reservation.getBoardingPoint().getRoute().getId();
         Route route = routeRepository.findByIdForUpdate(routeId)
-                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Trajet introuvable (id=" + routeId + ")."));
+                .orElseThrow(() -> new ResourceNotFoundException("Trajet introuvable (id=" + routeId + ")."));
 
         if (LocalDateTime.now().isAfter(route.getStartDate().minus(CANCELLATION_DELAY))) {
-            throw refused(HttpStatus.CONFLICT,
+            throw new ConflictException(
                     "Le délai d'annulation est dépassé : une réservation s'annule jusqu'à 24 heures avant le départ.");
         }
 
@@ -138,7 +140,7 @@ public class ReservationService {
     @Transactional(readOnly = true)
     public List<ReservationResponse> getByPassenger(UUID passengerId) {
         if (!passengerRepository.existsById(passengerId)) {
-            throw refused(HttpStatus.NOT_FOUND, "Passager introuvable : " + passengerId);
+            throw new ResourceNotFoundException("Passager introuvable : " + passengerId);
         }
         return reservationMapper.toResponses(
                 reservationRepository.findByPassengerIdOrderByReservationDateDesc(passengerId));
@@ -153,10 +155,10 @@ public class ReservationService {
 
     private Reservation findOwned(UUID passengerId, Long id) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Réservation introuvable (id=" + id + ")."));
+                .orElseThrow(() -> new ResourceNotFoundException("Réservation introuvable (id=" + id + ")."));
 
         if (!reservation.getPassenger().getId().equals(passengerId)) {
-            throw refused(HttpStatus.FORBIDDEN, "Cette réservation appartient à un autre passager.");
+            throw new ForbiddenOperationException("Cette réservation appartient à un autre passager.");
         }
         return reservation;
     }
@@ -165,12 +167,7 @@ public class ReservationService {
         return route.getStagingPoints().stream()
                 .filter(p -> p.getId().equals(pointId))
                 .findFirst()
-                .orElseThrow(() -> refused(HttpStatus.BAD_REQUEST,
+                .orElseThrow(() -> new InvalidRequestException(
                         "Le point de " + role + " n'appartient pas à ce trajet (id=" + pointId + ")."));
-    }
-
-    private ResponseStatusException refused(HttpStatus status, String message) {
-        log.warn(message);
-        return new ResponseStatusException(status, message);
     }
 }

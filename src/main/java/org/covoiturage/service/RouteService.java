@@ -12,6 +12,10 @@ import org.covoiturage.entity.Route;
 import org.covoiturage.entity.Vehicle;
 import org.covoiturage.enums.ReservationStatus;
 import org.covoiturage.enums.RouteStatus;
+import org.covoiturage.exception.ConflictException;
+import org.covoiturage.exception.ForbiddenOperationException;
+import org.covoiturage.exception.InvalidRequestException;
+import org.covoiturage.exception.ResourceNotFoundException;
 import org.covoiturage.mapper.RouteMapper;
 import org.covoiturage.mapper.StagingPointMapper;
 import org.covoiturage.repository.DriverRepository;
@@ -24,10 +28,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,14 +53,10 @@ public class RouteService {
 
     @Transactional
     public RouteResponse create(UUID driverId, RouteCreateRequest request) {
-        Vehicle vehicle = vehicleRepository.findById(request.getVehicleId())
-//                .orElseThrow(() -> new ResourceNotFoundException("Véhicule introuvable (id=" + request.vehicleId() + ")."));
-                .orElseThrow();
-//        Driver exception
-        if (!vehicle.getDriver().getId().equals(driverId)) throw new RuntimeException();
+        Vehicle vehicle = findOwnedVehicle(driverId, request.getVehicleId());
 
         if (request.getAvailablePlaces() > vehicle.getCapacity()) {
-            throw refused(HttpStatus.BAD_REQUEST, "Le véhicule a une capacité de " + vehicle.getCapacity()
+            throw new InvalidRequestException("Le véhicule a une capacité de " + vehicle.getCapacity()
                     + " places : " + vehicle.getCapacity() + " places au maximum.");
         }
 
@@ -99,7 +97,7 @@ public class RouteService {
 
         if (request.getVehicleId() != null && !request.getVehicleId().equals(route.getVehicle().getId())) {
             if (hasBookings) {
-                throw refused(HttpStatus.CONFLICT,
+                throw new ConflictException(
                         "Le véhicule ne peut plus être changé : le trajet a des réservations confirmées.");
             }
             route.setVehicle(findOwnedVehicle(driverId, request.getVehicleId()));
@@ -107,7 +105,7 @@ public class RouteService {
 
         if (request.getAvailablePlaces() != null) {
             if (hasBookings && request.getAvailablePlaces() < previousPlaces) {
-                throw refused(HttpStatus.CONFLICT,
+                throw new ConflictException(
                         "Les places proposées ne peuvent pas être réduites : le trajet a des réservations confirmées.");
             }
             route.setAvailablePlaces(request.getAvailablePlaces());
@@ -115,7 +113,7 @@ public class RouteService {
 
         int capacity = route.getVehicle().getCapacity();
         if (route.getAvailablePlaces() > capacity) {
-            throw refused(HttpStatus.BAD_REQUEST, "Le véhicule a une capacité de " + capacity
+            throw new InvalidRequestException("Le véhicule a une capacité de " + capacity
                     + " places : " + capacity + " places au maximum.");
         }
 
@@ -133,7 +131,7 @@ public class RouteService {
         requireOpen(route, "terminé");
 
         if (LocalDateTime.now().isBefore(route.getStartDate())) {
-            throw refused(HttpStatus.CONFLICT, "Un trajet ne peut être terminé qu'après son heure de départ.");
+            throw new ConflictException("Un trajet ne peut être terminé qu'après son heure de départ.");
         }
 
         route.setStatus(RouteStatus.COMPLETED);
@@ -155,15 +153,9 @@ public class RouteService {
 
     private void requireOpen(Route route, String action) {
         if (!EDITABLE_STATUSES.contains(route.getStatus())) {
-            throw refused(HttpStatus.CONFLICT,
+            throw new ConflictException(
                     "Un trajet au statut " + route.getStatus() + " ne peut pas être " + action + ".");
         }
-    }
-
-//    HELPERS
-    private ResponseStatusException refused(HttpStatus status, String message) {
-        log.warn(message);
-        return new ResponseStatusException(status, message);
     }
 
     @Transactional
@@ -171,7 +163,7 @@ public class RouteService {
         Route route = findOwnedRoute(driverId, id);
 
         if (reservationRepository.existsByBoardingPointRouteId(id)) {
-            throw refused(HttpStatus.CONFLICT,
+            throw new ConflictException(
                     "Ce trajet a des réservations : il ne peut pas être supprimé, annulez-le à la place.");
         }
 
@@ -182,14 +174,14 @@ public class RouteService {
     @Transactional(readOnly = true)
     public RouteResponse getById(Long id) {
         Route route = routeRepository.findDetailById(id)
-                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Trajet introuvable (id=" + id + ")."));
+                .orElseThrow(() -> new ResourceNotFoundException("Trajet introuvable (id=" + id + ")."));
         return routeMapper.toResponse(route);
     }
 
     @Transactional(readOnly = true)
     public List<RouteResponse> getByDriver(UUID driverId) {
         if (!driverRepository.existsById(driverId)) {
-            throw refused(HttpStatus.NOT_FOUND, "Conducteur introuvable : " + driverId);
+            throw new ResourceNotFoundException("Conducteur introuvable : " + driverId);
         }
         return routeMapper.toResponses(routeRepository.findByVehicleDriverIdOrderByStartDateDesc(driverId));
     }
@@ -208,10 +200,10 @@ public class RouteService {
 
     public Route findOwnedRoute(UUID driverId, Long routeId) {
         Route route = routeRepository.findDetailById(routeId)
-                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Trajet introuvable (id=" + routeId + ")."));
+                .orElseThrow(() -> new ResourceNotFoundException("Trajet introuvable (id=" + routeId + ")."));
 
         if (!route.getVehicle().getDriver().getId().equals(driverId)) {
-            throw refused(HttpStatus.FORBIDDEN, "Ce trajet appartient à un autre conducteur.");
+            throw new ForbiddenOperationException("Ce trajet appartient à un autre conducteur.");
         }
 
         return route;
@@ -221,7 +213,7 @@ public class RouteService {
         Route route = findOwnedRoute(driverId, routeId);
 
         if (!EDITABLE_STATUSES.contains(route.getStatus())) {
-            throw refused(HttpStatus.CONFLICT,
+            throw new ConflictException(
                     "Un trajet au statut " + route.getStatus() + " ne peut plus être modifié.");
         }
 
@@ -230,10 +222,10 @@ public class RouteService {
 
     private Vehicle findOwnedVehicle(UUID driverId, Long vehicleId) {
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Véhicule introuvable (id=" + vehicleId + ")."));
+                .orElseThrow(() -> new ResourceNotFoundException("Véhicule introuvable (id=" + vehicleId + ")."));
 
         if (!vehicle.getDriver().getId().equals(driverId)) {
-            throw refused(HttpStatus.FORBIDDEN, "Ce véhicule appartient à un autre conducteur.");
+            throw new ForbiddenOperationException("Ce véhicule appartient à un autre conducteur.");
         }
         return vehicle;
     }
