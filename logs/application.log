@@ -1749,3 +1749,169 @@
 2026-11-22T04:06:28.730+01:00 DEBUG 36256 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (37775b11-226f-4185-8fac-868200cce377)
 2026-11-22T04:06:28.731+01:00 DEBUG 36256 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@28d14b22
 2026-11-22T04:06:28.772+01:00 DEBUG 36256 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (6ed6336b-32ad-4bc6-949e-1b7ee83a25dc)
+2026-11-22T16:54:39.092+01:00  INFO 11424 --- [Covoiturage] [restartedMain] org.covoiturage.CovoiturageApplication   : Starting CovoiturageApplication using Java 21.0.10 with PID 11424 (C:\Users\Youcode\Desktop\CurrentProjects\Covoiturage\target\classes started by Youcode in C:\Users\Youcode\Desktop\CurrentProjects\Covoiturage)
+2026-11-22T16:54:39.095+01:00  INFO 11424 --- [Covoiturage] [restartedMain] org.covoiturage.CovoiturageApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-11-22T16:54:41.178+01:00  INFO 11424 --- [Covoiturage] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-22T16:54:41.179+01:00  INFO 11424 --- [Covoiturage] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-22T16:54:41.335+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.util.UtilityElf        : Class org.postgresql.Driver found in Thread context class loader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@79618b7f
+2026-11-22T16:54:41.465+01:00  INFO 11424 --- [Covoiturage] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-11-22T16:54:41.553+01:00  INFO 11424 --- [Covoiturage] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.13.Final
+2026-11-22T16:54:42.270+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : HikariPool-1 - configuration:
+2026-11-22T16:54:42.272+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : allowPoolSuspension.............false
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : autoCommit......................true
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : catalog.........................none
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : connectionInitSql...............none
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : connectionTestQuery.............none
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : connectionTimeout...............30000
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : credentials.....................com.zaxxer.hikari.util.Credentials@653e2ada
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : credentialsProvider.............none
+2026-11-22T16:54:42.273+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : credentialsProviderClassName....none
+2026-11-22T16:54:42.274+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : dataSource......................none
+2026-11-22T16:54:42.274+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : dataSourceClassName.............none
+2026-11-22T16:54:42.274+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : dataSourceJNDI..................none
+2026-11-22T16:54:42.275+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : dataSourceProperties............{password=<masked>}
+2026-11-22T16:54:42.275+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : driverClassName................."org.postgresql.Driver"
+2026-11-22T16:54:42.275+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : exceptionOverride...............none
+2026-11-22T16:54:42.275+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : exceptionOverrideClassName......none
+2026-11-22T16:54:42.276+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : healthCheckProperties...........{}
+2026-11-22T16:54:42.276+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : healthCheckRegistry.............none
+2026-11-22T16:54:42.276+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : idleTimeout.....................600000
+2026-11-22T16:54:42.276+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : initializationFailTimeout.......1
+2026-11-22T16:54:42.276+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : isolateInternalQueries..........false
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : jdbcUrl.........................jdbc:postgresql://localhost:5434/Covoiturage_DB
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : keepaliveTime...................120000
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : leakDetectionThreshold..........0
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : maxLifetime.....................1800000
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : maximumPoolSize.................10
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : metricRegistry..................none
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : metricsTrackerFactory...........none
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : minimumIdle.....................10
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : password........................<masked>
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : poolName........................"HikariPool-1"
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : readOnly........................false
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : registerMbeans..................false
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : scheduledExecutor...............none
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : schema..........................none
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : threadFactory...................internal
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : transactionIsolation............default
+2026-11-22T16:54:42.277+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : username........................"postgres"
+2026-11-22T16:54:42.278+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariConfig           : validationTimeout...............5000
+2026-11-22T16:54:42.278+01:00  INFO 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-22T16:54:42.292+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (f7376e33-ba92-433c-bdb1-f1726f3ce36b)
+2026-11-22T16:54:42.567+01:00 DEBUG 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (f7376e33-ba92-433c-bdb1-f1726f3ce36b)
+2026-11-22T16:54:42.570+01:00  INFO 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3ac92507
+2026-11-22T16:54:42.573+01:00  INFO 11424 --- [Covoiturage] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-22T16:54:42.642+01:00  WARN 11424 --- [Covoiturage] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-11-22T16:54:42.674+01:00  INFO 11424 --- [Covoiturage] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5434/Covoiturage_DB]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 15.20
+	Default catalog/schema: Covoiturage_DB/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-22T16:54:42.675+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=1/10, idle=1/10, active=0, waiting=0)
+2026-11-22T16:54:42.676+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (2956795e-38bf-46f7-8c42-72b84a337c02)
+2026-11-22T16:54:42.702+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (2956795e-38bf-46f7-8c42-72b84a337c02)
+2026-11-22T16:54:42.702+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@793d1179
+2026-11-22T16:54:42.738+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=2/10, idle=2/10, active=0, waiting=0)
+2026-11-22T16:54:42.738+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (ac5e997d-6ded-4f5a-af47-a7f3c7753801)
+2026-11-22T16:54:42.762+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (ac5e997d-6ded-4f5a-af47-a7f3c7753801)
+2026-11-22T16:54:42.763+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@77faf02e
+2026-11-22T16:54:42.800+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=3/10, idle=3/10, active=0, waiting=0)
+2026-11-22T16:54:42.800+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (e5df5619-e9b3-472f-a5b6-da897e317af0)
+2026-11-22T16:54:42.832+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (e5df5619-e9b3-472f-a5b6-da897e317af0)
+2026-11-22T16:54:42.833+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@73c57a09
+2026-11-22T16:54:42.878+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=4/10, idle=4/10, active=0, waiting=0)
+2026-11-22T16:54:42.878+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (8ff5c5ee-b122-4385-8987-a9c5e2d559a3)
+2026-11-22T16:54:42.905+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (8ff5c5ee-b122-4385-8987-a9c5e2d559a3)
+2026-11-22T16:54:42.905+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@36c7fa15
+2026-11-22T16:54:42.940+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=5/10, idle=5/10, active=0, waiting=0)
+2026-11-22T16:54:42.940+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (b8ea2e55-dedb-452b-8f33-5466f1da8ff8)
+2026-11-22T16:54:42.970+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (b8ea2e55-dedb-452b-8f33-5466f1da8ff8)
+2026-11-22T16:54:42.970+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2760936d
+2026-11-22T16:54:43.003+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=6/10, idle=6/10, active=0, waiting=0)
+2026-11-22T16:54:43.003+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (1d42ceea-677f-494d-9b19-0cf62a2790da)
+2026-11-22T16:54:43.034+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (1d42ceea-677f-494d-9b19-0cf62a2790da)
+2026-11-22T16:54:43.035+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7bb6c2f
+2026-11-22T16:54:43.081+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=7/10, idle=7/10, active=0, waiting=0)
+2026-11-22T16:54:43.081+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (959365d4-9050-43d0-ae84-21730a5c2b02)
+2026-11-22T16:54:43.114+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (959365d4-9050-43d0-ae84-21730a5c2b02)
+2026-11-22T16:54:43.115+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5ff65be3
+2026-11-22T16:54:43.158+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=8/10, idle=8/10, active=0, waiting=0)
+2026-11-22T16:54:43.159+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (4e8228e4-8877-4781-a9c3-64384da6dc75)
+2026-11-22T16:54:43.183+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (4e8228e4-8877-4781-a9c3-64384da6dc75)
+2026-11-22T16:54:43.183+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@56e8055a
+2026-11-22T16:54:43.220+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=9/10, idle=9/10, active=0, waiting=0)
+2026-11-22T16:54:43.220+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Attempting to create/setup new connection (bb764ca1-4f79-4f20-bf6c-b327019dc4d1)
+2026-11-22T16:54:43.249+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Established new connection (bb764ca1-4f79-4f20-bf6c-b327019dc4d1)
+2026-11-22T16:54:43.249+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@75301f11
+2026-11-22T16:54:43.283+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-adder] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After adding stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:54:44.574+01:00  INFO 11424 --- [Covoiturage] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-22T16:54:46.146+01:00  WARN 11424 --- [Covoiturage] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-22T16:54:46.918+01:00  INFO 11424 --- [Covoiturage] [restartedMain] org.covoiturage.CovoiturageApplication   : Started CovoiturageApplication in 8.558 seconds (process running for 10.374)
+2026-11-22T16:54:46.921+01:00  WARN 11424 --- [Covoiturage] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-11-22T16:54:46.921+01:00  WARN 11424 --- [Covoiturage] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-11-22T16:54:56.376+01:00  INFO 11424 --- [Covoiturage] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-22T16:54:58.350+01:00  INFO 11424 --- [Covoiturage] [http-nio-8080-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1234 ms
+2026-11-22T16:55:12.680+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:55:12.681+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2026-11-22T16:55:42.687+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:55:42.688+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2026-11-22T16:56:12.702+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:56:12.705+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2026-11-22T16:56:20.662+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@793d1179 is alive
+2026-11-22T16:56:22.957+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@7bb6c2f is alive
+2026-11-22T16:56:24.243+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@77faf02e is alive
+2026-11-22T16:56:25.348+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@56e8055a is alive
+2026-11-22T16:56:25.881+01:00 DEBUG 11424 --- [Covoiturage] [http-nio-8080-exec-4] org.hibernate.SQL                        : select r1_0.id,r1_0.arrival_city,r1_0.available_places,sp1_0.route_id,sp1_0.id,sp1_0.city,sp1_0.passing_time,sp1_0.price,sp1_0.stop_order,r1_0.start_city,r1_0.start_date,r1_0.status,r1_0.vehicle_id,v1_0.id,v1_0.brand,v1_0.capacity,v1_0.driver_id,d1_0.id,d1_1.email,d1_1.firstname,d1_1.lastname,d1_1.phone,d1_0.licence,v1_0.model,v1_0.registration_number from routes r1_0 join vehicles v1_0 on v1_0.id=r1_0.vehicle_id join drivers d1_0 on d1_0.id=v1_0.driver_id join users d1_1 on d1_0.id=d1_1.id left join staging_points sp1_0 on r1_0.id=sp1_0.route_id where r1_0.id=? order by sp1_0.stop_order
+2026-11-22T16:56:26.144+01:00 DEBUG 11424 --- [Covoiturage] [http-nio-8080-exec-4] org.hibernate.SQL                        : select r1_0.id from reservations r1_0 join staging_points bp1_0 on bp1_0.id=r1_0.boarding_point_id where bp1_0.route_id=? and r1_0.status=? fetch first ? rows only
+2026-11-22T16:56:26.168+01:00 DEBUG 11424 --- [Covoiturage] [http-nio-8080-exec-4] org.hibernate.SQL                        : select v1_0.id,v1_0.brand,v1_0.capacity,v1_0.driver_id,v1_0.model,v1_0.registration_number from vehicles v1_0 where v1_0.id=?
+2026-11-22T16:56:26.177+01:00  WARN 11424 --- [Covoiturage] [http-nio-8080-exec-4] org.covoiturage.service.RouteService     : Véhicule introuvable (id=1).
+2026-11-22T16:56:26.194+01:00  WARN 11424 --- [Covoiturage] [http-nio-8080-exec-4] .w.s.m.a.ResponseStatusExceptionResolver : Resolved [org.springframework.web.server.ResponseStatusException: 404 NOT_FOUND "Véhicule introuvable (id=1)."]
+2026-11-22T16:56:29.663+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@75301f11 is alive
+2026-11-22T16:56:30.202+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@36c7fa15 is alive
+2026-11-22T16:56:30.394+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@3ac92507 is alive
+2026-11-22T16:56:35.058+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@73c57a09 is alive
+2026-11-22T16:56:35.442+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@2760936d is alive
+2026-11-22T16:56:36.463+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@5ff65be3 is alive
+2026-11-22T16:56:42.710+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:56:42.711+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2026-11-22T16:57:12.723+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:57:12.723+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2026-11-22T16:57:28.943+01:00 DEBUG 11424 --- [Covoiturage] [http-nio-8080-exec-2] org.hibernate.SQL                        : select r1_0.id,r1_0.arrival_city,r1_0.available_places,sp1_0.route_id,sp1_0.id,sp1_0.city,sp1_0.passing_time,sp1_0.price,sp1_0.stop_order,r1_0.start_city,r1_0.start_date,r1_0.status,r1_0.vehicle_id,v1_0.id,v1_0.brand,v1_0.capacity,v1_0.driver_id,d1_0.id,d1_1.email,d1_1.firstname,d1_1.lastname,d1_1.phone,d1_0.licence,v1_0.model,v1_0.registration_number from routes r1_0 join vehicles v1_0 on v1_0.id=r1_0.vehicle_id join drivers d1_0 on d1_0.id=v1_0.driver_id join users d1_1 on d1_0.id=d1_1.id left join staging_points sp1_0 on r1_0.id=sp1_0.route_id where r1_0.id=? order by sp1_0.stop_order
+2026-11-22T16:57:28.955+01:00 DEBUG 11424 --- [Covoiturage] [http-nio-8080-exec-2] org.hibernate.SQL                        : select r1_0.id from reservations r1_0 join staging_points bp1_0 on bp1_0.id=r1_0.boarding_point_id where bp1_0.route_id=? and r1_0.status=? fetch first ? rows only
+2026-11-22T16:57:28.962+01:00  INFO 11424 --- [Covoiturage] [http-nio-8080-exec-2] org.covoiturage.service.RouteService     : Trajet modifié : id=1, conducteur=9875bf9a-5f7c-45e6-b5db-8b09b54503b5
+2026-11-22T16:57:29.008+01:00 DEBUG 11424 --- [Covoiturage] [http-nio-8080-exec-2] org.hibernate.SQL                        : update routes set arrival_city=?,available_places=?,start_city=?,start_date=?,status=?,vehicle_id=? where id=?
+2026-11-22T16:57:42.731+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:57:42.731+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2026-11-22T16:57:58.619+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@793d1179 is alive
+2026-11-22T16:58:02.872+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@7bb6c2f is alive
+2026-11-22T16:58:05.711+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@77faf02e is alive
+2026-11-22T16:58:07.524+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@56e8055a is alive
+2026-11-22T16:58:12.741+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:58:12.742+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2026-11-22T16:58:16.066+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@75301f11 is alive
+2026-11-22T16:58:17.504+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@36c7fa15 is alive
+2026-11-22T16:58:18.219+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@3ac92507 is alive
+2026-11-22T16:58:27.281+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@73c57a09 is alive
+2026-11-22T16:58:27.948+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@2760936d is alive
+2026-11-22T16:58:29.819+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@5ff65be3 is alive
+2026-11-22T16:58:40.341+01:00  INFO 11424 --- [Covoiturage] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-11-22T16:58:40.341+01:00 DEBUG 11424 --- [Covoiturage] [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Before shutdown stats (total=10/10, idle=10/10, active=0, waiting=0)
+2026-11-22T16:58:40.342+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@3ac92507: (connection evicted)
+2026-11-22T16:58:40.343+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@793d1179: (connection evicted)
+2026-11-22T16:58:40.343+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@77faf02e: (connection evicted)
+2026-11-22T16:58:40.343+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@73c57a09: (connection evicted)
+2026-11-22T16:58:40.344+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@36c7fa15: (connection evicted)
+2026-11-22T16:58:40.345+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@2760936d: (connection evicted)
+2026-11-22T16:58:40.345+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@7bb6c2f: (connection evicted)
+2026-11-22T16:58:40.345+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@5ff65be3: (connection evicted)
+2026-11-22T16:58:40.346+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@56e8055a: (connection evicted)
+2026-11-22T16:58:40.347+01:00 DEBUG 11424 --- [Covoiturage] [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@75301f11: (connection evicted)
+2026-11-22T16:58:40.347+01:00 DEBUG 11424 --- [Covoiturage] [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After  shutdown stats (total=0/10, idle=0/10, active=0, waiting=0)
+2026-11-22T16:58:40.347+01:00  INFO 11424 --- [Covoiturage] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -1,9 +1,11 @@
 package org.covoiturage.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.covoiturage.dto.route.RouteCreateRequest;
 import org.covoiturage.dto.route.RouteResponse;
+import org.covoiturage.dto.route.RouteUpdateRequest;
 import org.covoiturage.service.RouteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +32,14 @@ public class RouteController {
                 .buildAndExpand(created.getId())
                 .toUri();
         return ResponseEntity.created(location).body(created);
+    }
+
+    @PutMapping("/driver/{driverId}/routes/{id}")
+    @Operation(summary = "Modifier un trajet")
+    public ResponseEntity<RouteResponse> update(@PathVariable UUID driverId,
+                                                @PathVariable Long id,
+                                                @Valid @RequestBody RouteUpdateRequest request) {
+        return ResponseEntity.ok(routeService.update(driverId, id, request));
     }
 
 }
