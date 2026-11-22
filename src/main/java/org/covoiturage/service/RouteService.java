@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.covoiturage.dto.route.RouteCreateRequest;
 import org.covoiturage.dto.route.RouteResponse;
+import org.covoiturage.dto.route.RouteSearchCriteria;
 import org.covoiturage.dto.route.RouteUpdateRequest;
 import org.covoiturage.dto.stagingPoint.StagingPointRequest;
 import org.covoiturage.entity.Route;
@@ -12,10 +13,16 @@ import org.covoiturage.enums.ReservationStatus;
 import org.covoiturage.enums.RouteStatus;
 import org.covoiturage.mapper.RouteMapper;
 import org.covoiturage.mapper.StagingPointMapper;
+import org.covoiturage.repository.DriverRepository;
 import org.covoiturage.repository.ReservationRepository;
 import org.covoiturage.repository.RouteRepository;
 import org.covoiturage.repository.VehicleRepository;
 import org.covoiturage.service.validator.StagingPointValidator;
+import org.covoiturage.specification.RouteSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +37,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class RouteService {
+    private static final int MAX_PAGE_SIZE = 20;
     private static final Set<RouteStatus> EDITABLE_STATUSES = Set.of(RouteStatus.PUBLISHED, RouteStatus.FULL);
 
     private final RouteRepository routeRepository;
@@ -38,6 +46,7 @@ public class RouteService {
     private final StagingPointMapper stagingPointMapper;
     private final StagingPointValidator stagingPointValidator;
     private final ReservationRepository reservationRepository;
+    private final DriverRepository driverRepository;
 
     @Transactional
     public RouteResponse create(UUID driverId, RouteCreateRequest request) {
@@ -121,6 +130,46 @@ public class RouteService {
     private ResponseStatusException refused(HttpStatus status, String message) {
         log.warn(message);
         return new ResponseStatusException(status, message);
+    }
+
+    @Transactional
+    public void delete(UUID driverId, Long id) {
+        Route route = findOwnedRoute(driverId, id);
+
+        if (reservationRepository.existsByBoardingPointRouteId(id)) {
+            throw refused(HttpStatus.CONFLICT,
+                    "Ce trajet a des réservations : il ne peut pas être supprimé, annulez-le à la place.");
+        }
+
+        routeRepository.delete(route);
+        log.info("Trajet supprimé : id={}, conducteur={}", id, driverId);
+    }
+
+    @Transactional(readOnly = true)
+    public RouteResponse getById(Long id) {
+        Route route = routeRepository.findDetailById(id)
+                .orElseThrow(() -> refused(HttpStatus.NOT_FOUND, "Trajet introuvable (id=" + id + ")."));
+        return routeMapper.toResponse(route);
+    }
+
+    @Transactional(readOnly = true)
+    public List<RouteResponse> getByDriver(UUID driverId) {
+        if (!driverRepository.existsById(driverId)) {
+            throw refused(HttpStatus.NOT_FOUND, "Conducteur introuvable : " + driverId);
+        }
+        return routeMapper.toResponses(routeRepository.findByVehicleDriverIdOrderByStartDateDesc(driverId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<RouteResponse> search(RouteSearchCriteria criteria, int page, int size) {
+        Pageable pageable = PageRequest.of(
+                Math.max(page, 0),
+                Math.clamp(size, 1, MAX_PAGE_SIZE),
+                Sort.by("startDate").ascending());
+
+        return routeRepository
+                .findAll(RouteSpecification.search(criteria), pageable)
+                .map(routeMapper::toResponse);
     }
 
     private Route findOwnedRoute(UUID driverId, Long routeId) {
